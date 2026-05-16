@@ -310,7 +310,7 @@ ACHIEVEMENTS_MANIFEST = {
     "patience": {"title": "achievement unlocked: patience", "desc": "successfully stood still for 5 minutes.", "req_seconds": 300},
     "glitch_hunter": {"title": "achievement unlocked: terminal infection", "desc": "your system experienced its first glitch.", "req_seconds": 10},
     "insomniac": {"title": "achievement unlocked: nocturnal anomaly", "desc": "opened the void between 1 AM and 4 AM.", "req_seconds": 1},
-    "crazy_commitment": {"title": "achievement unlocked: the commitment is crazy", "desc": "1 hour of absolute nothingness.", "req_seconds": 3600}
+    "crazy_commitment": {"title": "achievement unlocked: the commitment is crazy", "desc": "1 hour of absolute nothingness.", "req_seconds": 3600},
     "furry": {"title": "achievement unlocked owo: oooo a furry", "desc": "24 hours.", "req_seconds": 86400}
 }
 
@@ -468,7 +468,7 @@ def draw_fake_bsod():
     sad_face = font_sad.render(":(", True, (255, 255, 255))
     msg_1 = font_main.render("your pc ran into a problem and needs to restart. we're just", True, (255, 255, 255))
     msg_2 = font_main.render("collecting some error info, and then we'll restart for you.", True, (255, 255, 255))
-    stop_code = font_sub.render("stop code: reflections_void_breach", True, (255, 255, 255))
+    stop_code = font_sub.render("stop code: reflections_is_in_ur_pc_bozo", True, (255, 255, 255))
     
     screen.blit(sad_face, (100, 150))
     screen.blit(msg_1, (100, 280))
