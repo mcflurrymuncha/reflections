@@ -1,4 +1,25 @@
-# reflections
-an anti game
+<div align="center">
 
-alternate title: references
+<h1>reflections</h1>
+<p><em>-- an existential void of knowledge --</em></p>
+
+<p>A minimalist, responsive interactive environment that watches you back.</p>
+
+<hr />
+
+<h3>🛠️ Controls</h3>
+
+<p><strong><code>F11</code></strong> — Toggle Fullscreen Mode</p>
+<p><strong><code>Escape</code></strong> — Dismiss anomalies / Exit game</p>
+<p><strong><code>Resize / Maximize</code></strong> — Drag window borders freely to scale the void</p>
+
+<hr />
+
+<h3>🚀 Quick Start</h3>
+
+<pre><code>pip install pygame pypresence
+python main.py</code></pre>
+
+<p><em>*Make sure <code>song.mp3</code>, <code>icon.png</code>, and <code>icon.ico</code> are in the root directory.*</em></p>
+
+</div>
