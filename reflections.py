@@ -6,7 +6,6 @@
 #     | | \ \| |____| |    | |____| |___| |____   | |   _| || |__| | |\  |____) |
 #     |_|  \_\______|_|    |______|______\_____|  |_|  |_____\____/|_| \_|_____/ 
 #                                                                                 
-#                    -- an existential, chaotic ambient void --
 # ==============================================================================
 
 import pygame
@@ -28,9 +27,9 @@ try:
     from pypresence import Presence
     rpc = Presence(client_id)
     rpc.connect()
-    print("[system] synchronized with the void (discord rpc connected).")
+    print("discord rpc connected")
 except Exception:
-    print("[system] discord client untraced. proceeding in isolation.")
+    print("discord rpc failed to connect, is discord open?")
     rpc = None
 
 
@@ -44,7 +43,7 @@ width, height = 1280, 720
 fps = 60
 
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("reflections")
+pygame.display.set_caption("reflections.")
 clock = pygame.time.Clock()
 
 
@@ -54,9 +53,9 @@ clock = pygame.time.Clock()
 try:
     pygame.mixer.music.load("song.mp3")
     pygame.mixer.music.play(loops=-1) 
-    print("[audio] 'song.mp3' successfully bound to eternity.")
+    print("song.mp3 found and is playing")
 except pygame.error as e:
-    print(f"[audio] the silence remains unbroken. (could not load 'song.mp3'): {e}")
+    print(f"could not load song.mp3): {e}")
 
 
 # ------------------------------------------------------------------------------
@@ -114,13 +113,9 @@ text_pool = [
     "this is what unlimited access to the internet at age 7 does to a person.",
     "have you ever had a dream that you, um, you had...",
     "bye",
-
-    # --- hip-hop & producer tags ---
     "yo pi'erre, you wanna come out here?",
-    "yes. it is supposed to crash when you press the x. dont try it tho. im loneley"
-    "foiddestroyer678 is typing..."
-
-    # --- legendary gaming foundations ---
+    "yes. it is supposed to crash when you press the x. dont try it tho. im loneley",
+    "foiddestroyer678 is typing...",
     "when stanley came to a set of two open doors, he entered the door on his left.",
     "the end is never the end is never the end is never...",
     "just monika.",
@@ -138,13 +133,22 @@ text_pool = [
     "it's a wonderful day outside. birds are singing, flowers are blooming...",
     "but nobody came.",
     "disconnected from server: timed out.",
-    "you've met with a terrible fate, haven't you?",
     "this is the part where he kills you.",
-    "i'm still in a dream, snake eater.",
-    "the storm has fully closed. there is nowhere left to run.",
-    "connection terminated. i'm sorry to interrupt you, elizabeth...",
     "get a job loser",
-
+    "ARE YA GONNA PULL OVA",
+    "steam release: after gta 6",
+    "GUBBY",
+    "dank memez",
+    "sosig",
+    "owo wats dis?",
+    "wake up",
+    "its all a dream.",
+    "just wish i was normal.. :/",
+    "no...",
+    "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+    "GET OUT OF MY HEADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+    "fart",
+    
     # --- glitch prompt metadata ---
     "calculating the exact amount of time you've wasted...",
     "i can see you.",
@@ -176,7 +180,7 @@ def run_filesystem_scan():
             scan_quotes.append("job application.")
         if any("steam" in f for f in desktop_files):
             scan_quotes.append("you have steam installed, yet you are running an unevaluated python script.")
-        if any("discord" in f for f in desktop_files):
+        if any("discord" in f or "equibop" in f or "vesktop" in f for f in desktop_files):
             scan_quotes.append("your discord status says 'nothing'. but they know you're staring at me.")
         if any("spotify" in f for f in desktop_files):
             scan_quotes.append("turn off spotify. song.mp3 is the only track you need right now.")
@@ -190,11 +194,11 @@ def run_filesystem_scan():
         # DDLC / Visual Novel target evaluation
         if any("ddlc" in f or "doki" in f or "literature club" in f for f in desktop_files):
             scan_quotes.append("target demographic reached ig.")
-            scan_quotes.append("of course you have ddlc on your desktop. look at us right now.")
+            scan_quotes.append("you have ddlc on your desktop. ily twin")
 
         # FL Studio targeted obliteration
         if any("fl studio" in f or "flstudio" in f or "fl64" in f or ".flp" in f for f in desktop_files):
-            scan_quotes.append("close fl studio. ur music is fucking horrible.")
+            scan_quotes.append("ur music is fucking horrible. uninstall fl rn bro")
 
         # Browser history / HW calls
         if any("chrome" in f or "opera" in f or "firefox" in f or "edge" in f for f in desktop_files):
@@ -210,7 +214,7 @@ def run_filesystem_scan():
             
         # Track total clutter
         if len(desktop_files) > 30:
-            scan_quotes.append(f"you have {len(desktop_files)} items cluttering your desktop. fix your life.")
+            scan_quotes.append(f"you have {len(desktop_files)} items cluttering your desktop. are you larping as speed bro.")
 
     except Exception:
         pass 
@@ -229,7 +233,7 @@ def get_time_based_reflections():
     
     timed_quotes = []
     
-    if 0 <= current_hour < 5:
+    if 20 <= current_hour < 5:
         timed_quotes.extend([
             f"it is currently {now.strftime('%I:%M %p')}. go to sleep.",
             "nothing good happens after 2 am. especially not in this void.",
@@ -241,20 +245,16 @@ def get_time_based_reflections():
     if current_day in [4, 5]:
         timed_quotes.extend([
             "it's the weekend. shouldn't you be out doing... literally anything else?",
-            "friday night plans: doing absolutely nothing inside a window-shattered python script.",
             "imagine having weekend plans. couldn't be us, chat."
         ])
     elif current_day == 6:
         timed_quotes.extend([
-            "sunday evening dread initializing...",
             "the weekend is practically over. wake up.",
             "per my last reflection, monday is coming for you."
         ])
     elif 9 <= current_hour <= 17:
         timed_quotes.extend([
-            "shouldn't you be working or paying attention to class right now?",
-            "alt-tabbing away from your responsibilities just to look at the void.",
-            "productive member of society simulator."
+            "shouldn't you be working or paying attention to class right now?"
         ])
 
     return timed_quotes
@@ -264,7 +264,7 @@ def get_time_based_reflections():
 # textual framework state management
 # ------------------------------------------------------------------------------
 text_state = {
-    "current_text": "there is nothing to do here.",
+    "current_text": "reflections.",
     "alpha": 0.0,
     "mode": "FADE_IN",
     "timer": time.time(),
@@ -297,6 +297,7 @@ def process_text_lifecycle(current_time, active_pool):
             text_state["current_text"] = next_text
             text_state["mode"] = "FADE_IN"
             text_state["hold_duration"] = random.uniform(3.0, 7.0)
+            print(next_text)
 
 
 # ------------------------------------------------------------------------------
@@ -310,6 +311,7 @@ ACHIEVEMENTS_MANIFEST = {
     "glitch_hunter": {"title": "achievement unlocked: terminal infection", "desc": "your system experienced its first glitch.", "req_seconds": 10},
     "insomniac": {"title": "achievement unlocked: nocturnal anomaly", "desc": "opened the void between 1 AM and 4 AM.", "req_seconds": 1},
     "crazy_commitment": {"title": "achievement unlocked: the commitment is crazy", "desc": "1 hour of absolute nothingness.", "req_seconds": 3600}
+    "furry": {"title": "achievement unlocked owo: oooo a furry", "desc": "24 hours.", "req_seconds": 86400}
 }
 
 if os.path.exists(SAVE_FILE):
@@ -488,8 +490,8 @@ def trigger_void_popup():
     
     glitch_thoughts = [
         ["an anomaly has occurred.", "the system is running out of thoughts.", "do you wish to stay here?"],
-        ["warning: terminal leak.", "your mind has drifted too far.", "return to reality?"],
-        ["100% empty.", "there is nothing left to process.", "close your eyes."]
+        ["no", "no", "no"],
+        ["", "", ""]
     ]
     error_lines = random.choice(glitch_thoughts)
     
@@ -550,10 +552,10 @@ def mirror_state_to_discord():
         return
     try:
         rpc.update(
-            state="I KNOW HOW TO 'CODE'",
-            details="a 'game' by vexi about 'nothing' ",
+            state="staring at nothing but thoughts",
+            details="forza horizon 6 in 2 days",
             start=start_time,
-            large_image="void", 
+            large_image="abyss_image", 
             large_text="reflections"
         )
     except Exception:
