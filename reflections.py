@@ -83,7 +83,6 @@ for _ in range(140):
 # THE ABSOLUTE GRAVEYARD OF TEXT TRANSLATIONS (ULTIMATE POOL)
 # ------------------------------------------------------------------------------
 text_pool = [
-    # --- original melancholy ---
     "there is nothing to do here.",
     "in the quiet space between actions, we find ourselves.",
     "f i n d   m e .",
@@ -96,71 +95,30 @@ text_pool = [
     "if you are reading this. you are able to read.",
     "btw u can customize the song",
     "the weather today is completely overcast. just like your mind.",
-    "loading chunks of memories that don't belong to you anymore.",
-
-    # --- pop culture, cinema & tv ---
-    "i'm going to make him an offer he can't refuse.", 
-    "the first rule of fight club is: you do not talk about fight club.", 
-    "say my name.", 
-    "i am the one who knocks.", 
-    "we're not in kansas anymore.", 
-    "may the force be with you... because nothing else is here.", 
-    "here's johnny!", 
+    "memories that don't belong to you anymore.",
+    "ambouttakam",  
     "all those moments will be lost in time, like tears in rain.", 
     "why so serious?", 
     "i see dead pixels.", 
-    "it's morphin time.", 
-    "winter is coming. actually, it's already here.", 
-
-    # --- internet history & timeless memes ---
-    "chat, is this real?",
+    "h",
     "let him cook.",
-    "bro is holding down the escape key like it's going to save him.",
-    "hawk tuah. spit on that void.",
+    "press escape for free robux and limiteds",
+    "what the fuck",
     "bro really compiled an entire exe just to do nothing.",
-    "i put the new forgis on the jeep...",
-    "giga-chad idling simulator.",
-    "this game is brought to you by raid: shadow legends.",
-    "skibidi toilet syndrome initialized.",
     "it's just a prank, bro. look at the camera.",
-    "pinging @everyone for absolutely no reason.",
+    "@everyone nudes",
     "he's pulling his cock out!",
-    "the fitnessgram pacer test is a multistage aerobic capacity test...",
-    "press f to pay respects to your remaining brain cells.",
-    "mom said it's my turn on the existential dread.",
-    "gg ez no re.",
-    "clutch or kick.",
-    "was that the bite of '87?!",
-    "leeerooooyy jennnkinssssss!!!",
-    "the fog is coming. the fog is coming.",
+    "istg ur gay",
     "birds aren't real. neither is this game.",
-    "what if we kissed in the python anti-game? jk... unless?",
+    "what if we kissed in the python game? jk... unless?",
     "this is what unlimited access to the internet at age 7 does to a person.",
-    "an error occurred while trying to load your personality.",
-    "honestly, the commitment *is* crazy.",
     "have you ever had a dream that you, um, you had...",
+    "bye",
 
     # --- hip-hop & producer tags ---
     "yo pi'erre, you wanna come out here?",
-    "if young metro don't trust you, i'm gon' shoot you.",
-    "damn son, where'd you find this?",
-    "wake up, f1lthy...",
-    "i'm working on dying.",
-    "real trap shit.",
-    "worldstar!",
-    "can you hear the 808s clipping in the distance?",
-    "straight up!", 
-    "it's lit!", 
-    "we da best music.", 
-    "another one.", 
-
-    # --- corporate misery & burnouts ---
-    "i hope this email finds you before the void does.",
-    "per my last reflection, there is still nothing to do here.",
-    "let's circle back to doing absolutely nothing at the end of the quarter.",
-    "your application has been reviewed, and we have decided to move forward with other candidates.",
-    "unhandled exception: your life tracking is out of bounds.",
-    "please submit your assignment before 11:59 pm or face absolute non-existence.",
+    "yes. it is supposed to crash when you press the x. dont try it tho. im loneley"
+    "foiddestroyer678 is typing..."
 
     # --- legendary gaming foundations ---
     "when stanley came to a set of two open doors, he entered the door on his left.",
@@ -185,6 +143,7 @@ text_pool = [
     "i'm still in a dream, snake eater.",
     "the storm has fully closed. there is nowhere left to run.",
     "connection terminated. i'm sorry to interrupt you, elizabeth...",
+    "get a job loser",
 
     # --- glitch prompt metadata ---
     "calculating the exact amount of time you've wasted...",
@@ -591,8 +550,8 @@ def mirror_state_to_discord():
         return
     try:
         rpc.update(
-            state="nothing",
-            details="nothing",
+            state="I KNOW HOW TO 'CODE'",
+            details="a 'game' by vexi about 'nothing' ",
             start=start_time,
             large_image="void", 
             large_text="reflections"
