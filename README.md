@@ -9,9 +9,7 @@
 
 <h3>🛠️ Controls</h3>
 
-<p><strong><code>F11</code></strong> — Toggle Fullscreen Mode</p>
-<p><strong><code>Escape</code></strong> — Dismiss anomalies / Exit game</p>
-<p><strong><code>Resize / Maximize</code></strong> — Drag window borders freely to scale the void</p>
+<p>there are no controls.</p>
 
 <hr />
 
