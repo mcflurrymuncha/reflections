@@ -35,7 +35,7 @@ jobs:
     - name: Package Runtime Assets into Both Builds
       run: |
         # Target list for populating folders
-        $Targets = @("dist/reflections_noconsole", "dist/reflections_console")
+        $Targets = @("dist/reflections_beta", "dist/reflections_debug")
 
         foreach ($Target in $Targets) {
           # Copy your required song asset directly into the compiled output folder
@@ -47,7 +47,7 @@ jobs:
           
           # Creates dummy folders inside both builds so your players can mess with them
           New-Item -ItemType Directory -Force -Path "$Target/characters"
-          New-Item -ItemType File -Force -Path "$Target/characters/yuri.chr" -Value "nothing to see here."
+          New-Item -ItemType File -Force -Path "$Target/characters/yuri.chr" -Value "the commitment is crazy"
         }
 
     - name: Upload Binary Artifacts
