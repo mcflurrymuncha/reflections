@@ -1,2 +1,4 @@
 # reflections
-An Anti-Game
+an anti game
+
+alternate title: references
