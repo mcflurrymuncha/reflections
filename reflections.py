@@ -42,8 +42,15 @@ pygame.mixer.init()
 width, height = 1280, 720
 fps = 60
 
-screen = pygame.display.set_mode((width, height))
+screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 pygame.display.set_caption("reflections.")
+try:
+    # Explicitly load the icon and bind it to the running OS window context
+    game_icon = pygame.image.load("icon.ico")
+    pygame.display.set_icon(game_icon)
+    print("window decorations fully customized.")
+except Exception as e:
+    print(f"window icon binding failed: {e}")
 clock = pygame.time.Clock()
 
 
