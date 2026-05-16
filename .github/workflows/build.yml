@@ -26,11 +26,11 @@ jobs:
 
     - name: Compile 'No Console' Build (Standard App)
       run: |
-        pyinstaller --noconfirm --onedir --windowed --name="reflections_noconsole" main.py
+        pyinstaller --noconfirm --onedir --windowed --name="reflections_beta" reflections.py
 
     - name: Compile 'Console' Build (Debug Mode)
       run: |
-        pyinstaller --noconfirm --onedir --console --name="reflections_console" main.py
+        pyinstaller --noconfirm --onedir --console --name="reflections_debug" reflections.py
 
     - name: Package Runtime Assets into Both Builds
       run: |
