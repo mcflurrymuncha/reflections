@@ -228,7 +228,7 @@ def run_filesystem_scan():
         if len(desktop_files) > 30:
             scan_quotes.append(f"you have {len(desktop_files)} items cluttering your desktop. are you larping as speed bro.")
 
-        if len(desktop_files) = 0
+        if len(desktop_files) == 0
             scan_quotes.append(f"empty ass desktop")
 
     except Exception:
