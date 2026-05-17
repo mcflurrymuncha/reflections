@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>reflections</h1>
+<h1>reflections. (beta)</h1>
 <p><em>-- an existential void of knowledge --</em></p>
 
 <p>a minimalist and responsive environment that watches you back.</p>
