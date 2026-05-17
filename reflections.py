@@ -155,6 +155,9 @@ text_pool = [
     "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
     "GET OUT OF MY HEADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
     "fart",
+    "this game is possibly on of the most lightweight games ever. it even has windows 95 support for fuck sake",
+    "こんにちは、あなたはとてもかわいいです",
+    "ебать",
     
     # --- glitch prompt metadata ---
     "calculating the exact amount of time you've wasted...",
@@ -162,7 +165,9 @@ text_pool = [
     "smile for the camera.",
     "error: terminal breach initiated.",
     "your cursor belongs to the void now.",
-    "your pc ran into a problem and needs to restart :("
+    "your pc ran into a problem and needs to restart :(",
+    "play something else",
+    "doki doki literal torture :3"
 ]
 
 
@@ -194,7 +199,7 @@ def run_filesystem_scan():
             
         # Roblox / Korone Revival specific callouts
         if any("roblox" in f for f in desktop_files):
-            scan_quotes.append("weirdo.")
+            scan_quotes.append("robloz")
         if any("korone" in f or "pekora" in f for f in desktop_files):
             scan_quotes.append("ts korone")
             
@@ -213,7 +218,7 @@ def run_filesystem_scan():
 
         # Homework / Academic coping
         if any("homework" in f or "school" in f or "essay" in f or "pdf" in f for f in desktop_files):
-            scan_quotes.append("ignore your homework. stay in the blank void. it's safer.")
+            scan_quotes.append("a homework folder aint hiding shit bucko")
             
         # Meta development environment callouts
         if any("vscode" in f or "code" in f for f in desktop_files):
@@ -222,6 +227,9 @@ def run_filesystem_scan():
         # Track total clutter
         if len(desktop_files) > 30:
             scan_quotes.append(f"you have {len(desktop_files)} items cluttering your desktop. are you larping as speed bro.")
+
+        if len(desktop_files) = 0
+            scan_quotes.append(f"empty ass desktop")
 
     except Exception:
         pass 
@@ -409,12 +417,14 @@ glitch_tracker = {
     "has_glitched": False,
     "bsod_active": False,
     "bsod_start": 0,
-    "mouse_hijack_until": 0
+    "mouse_hijack_until": 0,
+    "steam_launched_at": 0,
+    "uac_active": False
 }
 
 def trigger_system_glitch(current_time):
     glitch_tracker["has_glitched"] = True
-    glitch_type = random.choice(["calculator", "camera", "mouse_drift", "fake_bsod", "pitch_bend", "pierre_moment", "void_popup"])
+    glitch_type = random.choice(["calculator", "camera", "notepad", "paint", "taskmanager", "mouse_drift", "fake_bsod", "pitch_bend", "pierre_moment", "void_popup", "go_play_something_else", "ddlc_name_call", "fake_uac")
     
     try:
         if glitch_type == "calculator":
@@ -430,6 +440,44 @@ def trigger_system_glitch(current_time):
             text_state["alpha"] = 160
             text_state["mode"] = "HOLD"
             text_state["timer"] = current_time
+
+        elif glitch_type == "notepad":
+            subprocess.Popen("start notepad.exe:", shell=True)
+            text_state["current_text"] = "take some notes."
+            text_state["alpha"] = 160
+            text_state["mode"] = "HOLD"
+            text_state["timer"] = current_time
+
+        elif glitch_type == "paint":
+            subprocess.Popen("start mspaint.exe:", shell=True)
+            text_state["current_text"] = "make a drawing."
+            text_state["alpha"] = 160
+            text_state["mode"] = "HOLD"
+            text_state["timer"] = current_time
+
+        elif glitch_type == "taskmanager":
+            subprocess.Popen("start taskmgr.exe:", shell=True)
+            text_state["current_text"] = "oops."
+            text_state["alpha"] = 160
+            text_state["mode"] = "HOLD"
+            text_state["timer"] = current_time
+            
+        elif glitch_type == "go_play_something_else":
+            os.system("start steam://open/main")
+            text_state["current_text"] = "go play something else."
+            text_state["alpha"] = 160
+            text_state["mode"] = "HOLD"
+            text_state["timer"] = current_time
+            glitch_tracker["steam_launched_at"] = current_time
+
+        elif glitch_type == "ddlc_name_call":
+            # Grabs the actual account login name on Windows/macOS (e.g., "John" or "admin")
+            os_username = os.getlogin().lower()
+            text_state["current_text"] = f"i am looking right at you, {os_username}."
+            text_state["alpha"] = 160
+            text_state["mode"] = "HOLD"
+            text_state["timer"] = current_time
+            text_state["hold_duration"] = 8.0 
 
         elif glitch_type == "mouse_drift":
             glitch_tracker["mouse_hijack_until"] = current_time + random.uniform(2.0, 5.0)
@@ -458,6 +506,21 @@ def trigger_system_glitch(current_time):
             text_state["timer"] = current_time
             pygame.mixer.music.pause()
             glitch_tracker["mouse_hijack_until"] = current_time + 1.8
+
+        elif glitch_type == "fake_uac":
+            import ctypes
+            pygame.mixer.music.pause()
+            
+            # Re-runs the current python executable or compiled script requesting 'runas' (Admin) privileges
+            # Windows handles the prompt entirely. The script doesn't actually elevate itself; it just throws the scare box.
+            ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+            
+            # Resume the atmospheric background once they click Yes or No on the real OS prompt
+            pygame.mixer.music.unpause()
+            text_state["current_text"] = "did that scare u?"
+            text_state["alpha"] = 160
+            text_state["mode"] = "HOLD"
+            text_state["timer"] = current_time
 
         elif glitch_type == "void_popup":
             trigger_void_popup()
