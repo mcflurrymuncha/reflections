@@ -621,13 +621,20 @@ def mirror_state_to_discord():
     if not rpc:
         return
     try:
-        rpc.update(
+       rpc.update(
             state="staring at nothing but thoughts",
-            details="forza horizon 6 in 2 days",
+            details="game of the year?",
             start=start_time,
-            large_image="abyss_image", 
-            large_text="reflections"
-        )
+            large_image="abyss_logo", 
+            large_text="reflections. (beta)",
+            
+            # --- Added Buttons Array ---
+            buttons=[
+                {
+                    "label": "Download", 
+                    "url": "https://mcflurrymuncha.github.io/reflections"  # Replace with your actual URL
+                }
+            ]
     except Exception:
         pass
 
