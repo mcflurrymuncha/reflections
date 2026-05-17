@@ -635,6 +635,7 @@ def mirror_state_to_discord():
                     "url": "https://mcflurrymuncha.github.io/reflections"  # Replace with your actual URL
                 }
             ]
+       )
     except Exception:
         pass
 
