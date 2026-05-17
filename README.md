@@ -14,6 +14,8 @@
 <hr />
 
 <h3>quick start</h3>
+<p>clone this repo, then open cmd inside of the folder</p>
+<p><strong>python</strong> is required</p>
 
 <pre><code>pip install pygame pypresence
 python main.py</code></pre>
