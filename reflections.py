@@ -424,7 +424,7 @@ glitch_tracker = {
 
 def trigger_system_glitch(current_time):
     glitch_tracker["has_glitched"] = True
-    glitch_type = random.choice(["calculator", "camera", "notepad", "paint", "taskmanager", "mouse_drift", "fake_bsod", "pitch_bend", "pierre_moment", "void_popup", "go_play_something_else", "ddlc_name_call", "fake_uac")
+    glitch_type = random.choice(["calculator", "camera", "notepad", "paint", "taskmanager", "mouse_drift", "fake_bsod", "pitch_bend", "pierre_moment", "void_popup", "go_play_something_else", "ddlc_name_call", "fake_uac"])
     
     try:
         if glitch_type == "calculator":
