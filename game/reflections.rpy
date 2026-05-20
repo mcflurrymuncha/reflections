@@ -214,7 +214,7 @@ screen digital_snow():
 screen main_menu():
     tag menu
     add "#000000"
-    show screen digital_snow
+    use digital_snow
     vbox:
         align (0.5, 0.45) spacing 15
         text "reflections." font "CAMBRIA.TTC" size 52 color "#ffffff" xalign 0.5 at menu_fade_in
@@ -231,7 +231,7 @@ transform menu_fade_in:
 screen milestone_popup(title, desc):
     layer "overlay"
     frame:
-        background "#0f0f11b4" border_color "#78787d" border_width 1
+        background Solid("#0f0f11b4")
         xsize 480 ysize 75 align (0.5, 0.85) padding (20, 12) at popup_fade_transform
         vbox:
             spacing 4
@@ -240,7 +240,10 @@ screen milestone_popup(title, desc):
 
 transform popup_fade_transform:
     on show:
-        alpha 0.0 linear 0.5 alpha 1.0 pause 4.0 linear 0.5 alpha 0.0
+        alpha 0.0
+        linear 0.5 alpha 1.0
+        pause 4.0
+        linear 0.5 alpha 0.0
 
 screen fake_bsod_anomaly():
     add "#0078d7"
@@ -257,13 +260,13 @@ screen void_popup_anomaly(lines):
     modal True
     add "#000000e6"
     frame:
-        background "#050505" border_color "#8c8c91" border_width 1
+        background Solid("#050505")
         xsize 460 ysize 180 align (0.5, 0.5) padding (30, 25)
         vbox:
             spacing 12
             for line in lines: text line font "CAMBRIA.TTC" size 18 color "#bcbfc8"
         frame:
-            background "#050505" border_color "#8c8c91" border_width 1 xsize 70 ysize 28 align (0.95, 0.9)
+            background Solid("#050505") xsize 70 ysize 28 align (0.95, 0.9)
             textbutton "yes":
                 text_font "CAMBRIA.TTC" text_size 15 text_bold True text_idle_color "#d2d7dc" text_hover_color "#ffffff" action Return()
 
@@ -309,7 +312,8 @@ label void_matrix_loop:
     if glitch_roll < 0.00015:
         jump trigger_engine_glitch
         
-    show text "[chosen_text]" font "CAMBRIA.TTC" size 26 color "#d2d7dc" at truecenter with Dissolve(2.0)
+    $ formatted_text = "{font=CAMBRIA.TTC}{size=26}{color=#d2d7dc}" + chosen_text + "{/color}{/size}{/font}"
+    show text "[formatted_text]" at truecenter with Dissolve(2.0)
     $ renpy.pause(random.uniform(3.0, 7.0))
     hide text with Dissolve(1.5)
     $ renpy.pause(1.0)
@@ -330,7 +334,8 @@ label trigger_engine_glitch:
         except Exception: pass
 
     if glitch_type in ["calculator", "camera", "notepad", "paint", "taskmanager", "go_play_something_else", "ddlc_name_call"]:
-        show text "[chosen_text]" font "CAMBRIA.TTC" size 26 color "#d2d7dc" at truecenter with Dissolve(1.0)
+        $ formatted_text = "{font=CAMBRIA.TTC}{size=26}{color=#d2d7dc}" + chosen_text + "{/color}{/size}{/font}"
+        show text "[formatted_text]" at truecenter with Dissolve(1.0)
         $ renpy.pause(5.0)
         hide text with Dissolve(1.5)
         jump void_matrix_loop
@@ -349,7 +354,8 @@ label trigger_engine_glitch:
             try: ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, None, None, 1)
             except Exception: pass
         $ renpy.music.unpause()
-        show text "did that scare u?" font "CAMBRIA.TTC" size 26 color "#d2d7dc" at truecenter with Dissolve(1.0)
+        $ formatted_text = "{font=CAMBRIA.TTC}{size=26}{color=#d2d7dc}did that scare u?{/color}{/size}{/font}"
+        show text "[formatted_text]" at truecenter with Dissolve(1.0)
         $ renpy.pause(4.0)
         hide text with Dissolve(1.5)
         jump void_matrix_loop
