@@ -23,23 +23,22 @@ init python:
     build.include_update = False
     
     # --- WINDOWS-ONLY PACKAGING CONFIGURATION ---
+    # setting non-windows packages to an empty format string '' stops them from compiling entirely
     build.package('win', 'zip', 'windows', 'windows build')
-    
-    # remove everything from non-windows distributions
-    build.classify('**', None, 'mac')
-    build.classify('**', None, 'linux')
-    build.classify('**', None, 'all')
-    
-    # WEB-SAFE CLASSIFICATION FOR WINDOWS
-    build.classify('game/**.rpy', None, 'win')
-    build.classify('game/**.rpyc', 'archive', 'win')
-    build.classify('game/**.mp3', 'archive', 'win')
-    build.classify('game/**.MP3', 'archive', 'win')
-    build.classify('game/**.ttc', 'archive', 'win')
-    build.classify('game/**.TTC', 'archive', 'win')
-    build.classify('game/**.ttf', 'archive', 'win')
-    build.classify('game/**.TTF', 'archive', 'win')
-    build.classify('game/characters/**', 'archive', 'win')
+    build.package('linux', '', 'linux', '')
+    build.package('mac', '', 'mac', '')
+    build.package('all', '', 'all', '')
+
+    # WEB-SAFE CLASSIFICATION
+    build.classify('game/**.rpy', None)
+    build.classify('game/**.rpyc', 'archive')
+    build.classify('game/**.mp3', 'archive')
+    build.classify('game/**.MP3', 'archive')
+    build.classify('game/**.ttc', 'archive')
+    build.classify('game/**.TTC', 'archive')
+    build.classify('game/**.ttf', 'archive')
+    build.classify('game/**.TTF', 'archive')
+    build.classify('game/characters/**', 'archive')
 
 # --- CORE STRIPPED GUI RULES ---
 init -1 python:
