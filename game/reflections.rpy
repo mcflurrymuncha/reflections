@@ -9,9 +9,9 @@
 # ==============================================================================
 
 # --- METADATA, DISPLAY, & BUILD SETTINGS ---
-define config.name = "Reflections"
+define config.name = "reflections"
 define gui.show_name = True
-define config.version = "3.0.0"
+define config.version = "1.0.0"
 define config.screen_width = 1280
 define config.screen_height = 720
 define config.window_title = "reflections."
@@ -21,11 +21,16 @@ init python:
     build.directory_name = "reflections-release"
     build.executable_name = "reflections"
     build.include_update = False
+    
+    # WEB-SAFE CLASSIFICATION (Catches both upper and lowercase variants for GitHub Linux Runners)
     build.classify('game/**.rpy', None)
     build.classify('game/**.rpyc', 'archive')
     build.classify('game/**.mp3', 'archive')
+    build.classify('game/**.MP3', 'archive')
     build.classify('game/**.ttc', 'archive')
+    build.classify('game/**.TTC', 'archive')
     build.classify('game/**.ttf', 'archive')
+    build.classify('game/**.TTF', 'archive')
 
 # --- CORE STRIPPED GUI RULES ---
 init -1 python:
@@ -102,7 +107,7 @@ init python:
         "its all a dream.",
         "just wish i was normal.. :/",
         "no...",
-        "GET OUT OF MY HEADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+        "get out of my headddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
         "fart",
         "こんにちは、あなたはとてもかわいいです",
         "ебать",
@@ -144,7 +149,7 @@ init python:
         timed_quotes = []
         if 20 <= current_hour or current_hour < 5:
             timed_quotes.extend([
-                f"it is currently {now.strftime('%I:%M %p')}. go to sleep.",
+                f"it is currently {now.strftime('%I:%M %p').lower()}. go to sleep.",
                 "nothing good happens after 2 am. especially not in this void.",
                 "staring at digital snow at 4 am. peak lifestyle choices.",
                 "your sleep schedule is more corrupted than yuri.chr.",
@@ -179,7 +184,7 @@ init python:
         presence.update(
             state="staring at nothing but thoughts", details="game of the year?",
             large_image="abyss_logo", large_text="reflections. (beta)",
-            buttons=[{"label": "Download", "url": "https://mcflurrymuncha.github.io/reflections"}]
+            buttons=[{"label": "download", "url": "https://mcflurrymuncha.github.io/reflections"}]
         )
     config.discord_presence_update_callback = dynamic_void_presence
 
@@ -269,16 +274,22 @@ label start:
     $ quick_menu = False
     scene black
     show screen digital_snow
-    if renpy.loadable("song.mp3"):
-        play music "song.mp3" loop
+    if renpy.loadable("song.mp3") or renpy.loadable("SONG.MP3"):
+        python:
+            track = "song.mp3" if renpy.loadable("song.mp3") else "SONG.MP3"
+            renpy.music.play(track, loop=True)
     "reflections."
     jump void_matrix_loop
 
 label void_matrix_loop:
     python:
-        if not os.path.exists(os.path.join(config.gamedir, "characters/yuri.chr")):
-            if "error: file 'characters/yuri.chr' not found." not in text_pool:
-                text_pool.append("you actually deleted her file. the commitment is terrifying.")
+        # Check case combinations safely on Linux build output environments
+        has_yuri = False
+        for ext in ["chr", "CHR"]:
+            if os.path.exists(os.path.join(config.gamedir, f"characters/yuri.{ext}")):
+                has_yuri = True
+        if not has_yuri and "error: file 'characters/yuri.chr' not found." not in text_pool:
+            text_pool.append("you actually deleted her file. the commitment is terrifying.")
 
     $ elapsed = int(time.time() - start_time)
     python:
