@@ -22,20 +22,24 @@ init python:
     build.executable_name = "reflections"
     build.include_update = False
     
-    # --- FORCE WINDOWS-ONLY PACKAGING (SHRINK DOWN FROM 1.5GB) ---
-    build.package('win', 'zip', 'windows', 'windows')
-    build.package('all', None, 'all', None) 
+    # --- WINDOWS-ONLY PACKAGING CONFIGURATION ---
+    build.package('win', 'zip', 'windows', 'windows build')
     
-    # WEB-SAFE CLASSIFICATION
-    build.classify('game/**.rpy', None)
-    build.classify('game/**.rpyc', 'archive')
-    build.classify('game/**.mp3', 'archive')
-    build.classify('game/**.MP3', 'archive')
-    build.classify('game/**.ttc', 'archive')
-    build.classify('game/**.TTC', 'archive')
-    build.classify('game/**.ttf', 'archive')
-    build.classify('game/**.TTF', 'archive')
-    build.classify('game/characters/**', 'archive')
+    # remove everything from non-windows distributions
+    build.classify('**', None, 'mac')
+    build.classify('**', None, 'linux')
+    build.classify('**', None, 'all')
+    
+    # WEB-SAFE CLASSIFICATION FOR WINDOWS
+    build.classify('game/**.rpy', None, 'win')
+    build.classify('game/**.rpyc', 'archive', 'win')
+    build.classify('game/**.mp3', 'archive', 'win')
+    build.classify('game/**.MP3', 'archive', 'win')
+    build.classify('game/**.ttc', 'archive', 'win')
+    build.classify('game/**.TTC', 'archive', 'win')
+    build.classify('game/**.ttf', 'archive', 'win')
+    build.classify('game/**.TTF', 'archive', 'win')
+    build.classify('game/characters/**', 'archive', 'win')
 
 # --- CORE STRIPPED GUI RULES ---
 init -1 python:
