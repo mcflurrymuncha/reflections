@@ -22,7 +22,11 @@ init python:
     build.executable_name = "reflections"
     build.include_update = False
     
-    # WEB-SAFE CLASSIFICATION (Catches both upper and lowercase variants for GitHub Linux Runners)
+    # --- FORCE WINDOWS-ONLY PACKAGING (SHRINK DOWN FROM 1.5GB) ---
+    build.package('win', 'zip', 'windows', 'windows')
+    build.package('all', None, 'all', None) 
+    
+    # WEB-SAFE CLASSIFICATION
     build.classify('game/**.rpy', None)
     build.classify('game/**.rpyc', 'archive')
     build.classify('game/**.mp3', 'archive')
@@ -31,6 +35,7 @@ init python:
     build.classify('game/**.TTC', 'archive')
     build.classify('game/**.ttf', 'archive')
     build.classify('game/**.TTF', 'archive')
+    build.classify('game/characters/**', 'archive')
 
 # --- CORE STRIPPED GUI RULES ---
 init -1 python:
@@ -287,7 +292,6 @@ label start:
 
 label void_matrix_loop:
     python:
-        # Check case combinations safely on Linux build output environments
         has_yuri = False
         for ext in ["chr", "CHR"]:
             if os.path.exists(os.path.join(config.gamedir, f"characters/yuri.{ext}")):
