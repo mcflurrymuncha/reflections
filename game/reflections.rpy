@@ -264,7 +264,8 @@ screen void_popup_anomaly(lines):
         xsize 460 ysize 180 align (0.5, 0.5) padding (30, 25)
         vbox:
             spacing 12
-            for line in lines: text line font "CAMBRIA.TTC" size 18 color "#bcbfc8"
+            for line in lines: 
+                text line font "CAMBRIA.TTC" size 18 color "#bcbfc8"
         frame:
             background Solid("#050505") xsize 70 ysize 28 align (0.95, 0.9)
             textbutton "yes":
