@@ -176,17 +176,17 @@ init python:
     }
 
 # ------------------------------------------------------------------------------
-# DISCORD PRESENCE PIPELINE
+# DISCORD PRESENCE PIPELINE (FALLBACK SYSTEM FOR HEADLESS COMPILING)
 # ------------------------------------------------------------------------------
 init python:
-    config.discord_presence_id = "1500874965879226498"
-    def dynamic_void_presence(presence):
-        presence.update(
-            state="staring at nothing but thoughts", details="game of the year?",
-            large_image="abyss_logo", large_text="reflections. (beta)",
-            buttons=[{"label": "download", "url": "https://mcflurrymuncha.github.io/reflections"}]
-        )
-    config.discord_presence_update_callback = dynamic_void_presence
+    discord_presence_id = "1500874965879226498"
+    def dynamic_void_presence(presence=None):
+        if presence:
+            presence.update(
+                state="staring at nothing but thoughts", details="game of the year?",
+                large_image="abyss_logo", large_text="reflections. (beta)",
+                buttons=[{"label": "download", "url": "https://mcflurrymuncha.github.io/reflections"}]
+            )
 
 # ------------------------------------------------------------------------------
 # VISUAL DISPLAYABLES & SCREEN ENGINE
