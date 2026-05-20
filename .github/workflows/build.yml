@@ -32,7 +32,7 @@ jobs:
 
       - name: package game distributions
         run: |
-          ./renpy-8.2.1-sdk/renpy.sh ./renpy-8.2.1-sdk/launcher dist ./
+          ./renpy-8.2.1-sdk/renpy.sh ./renpy-8.2.1-sdk/launcher distribute ./
 
       - name: upload build artifacts to github
         uses: actions/upload-artifact@v4
