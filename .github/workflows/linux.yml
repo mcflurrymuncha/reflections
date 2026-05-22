@@ -1,0 +1,58 @@
+name: reflections. linux build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository Source
+      uses: actions/checkout@v4
+
+    - name: Set up Python Runtime
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install System Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pygame pypresence pyinstaller
+
+    - name: Compile Standard Build
+      run: |
+        pyinstaller --noconfirm --onedir --name="reflections_beta" reflections.py
+
+    - name: Compile Debug Build (Console)
+      run: |
+        pyinstaller --noconfirm --onedir --name="reflections_debug" reflections.py
+
+    - name: Package Runtime Assets into Both Builds
+      run: |
+        # Define target folders
+        TARGETS=("dist/reflections_beta" "dist/reflections_debug")
+
+        for TARGET in "${TARGETS[@]}"; do
+          # Copy your required song asset directly into the compiled output folder
+          if [ -f "song.mp3" ]; then
+            cp "song.mp3" "$TARGET/"
+          else
+            echo "[warning] song.mp3 not found in root, proceeding with quiet mode build for $TARGET."
+          fi
+          
+          # Creates dummy folders inside both builds so your players can mess with them
+          mkdir -p "$TARGET/characters"
+          echo "the commitment is crazy" > "$TARGET/characters/yuri.chr"
+        done
+
+    - name: Upload Binary Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: reflections-linux-builds
+        path: dist/
+        if-no-files-found: error
