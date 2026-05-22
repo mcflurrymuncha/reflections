@@ -1,10 +1,22 @@
-name: reflections. linux build
+name: Compile Void Engine (Linux)
 
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - '.github/workflows/windows.yml'
+      - '.github/workflows/macos.yml'
+      - 'index.html'
+      - 'redme.md'
+      - 'README.md'
   pull_request:
     branches: [ "main" ]
+    paths-ignore:
+      - '.github/workflows/windows.yml'
+      - '.github/workflows/macos.yml'
+      - 'index.html'
+      - 'redme.md'
+      - 'README.md'
 
 jobs:
   build-linux:
@@ -34,18 +46,15 @@ jobs:
 
     - name: Package Runtime Assets into Both Builds
       run: |
-        # Define target folders
         TARGETS=("dist/reflections_beta" "dist/reflections_debug")
 
         for TARGET in "${TARGETS[@]}"; do
-          # Copy your required song asset directly into the compiled output folder
           if [ -f "song.mp3" ]; then
             cp "song.mp3" "$TARGET/"
           else
             echo "[warning] song.mp3 not found in root, proceeding with quiet mode build for $TARGET."
           fi
           
-          # Creates dummy folders inside both builds so your players can mess with them
           mkdir -p "$TARGET/characters"
           echo "the commitment is crazy" > "$TARGET/characters/yuri.chr"
         done
