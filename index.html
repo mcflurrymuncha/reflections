@@ -41,6 +41,8 @@
             z-index: 2;
             text-align: center;
             padding: 20px;
+            width: 100%;
+            max-width: 600px;
         }
 
         h1 {
@@ -60,17 +62,36 @@
             margin-bottom: 40px;
         }
 
-        .download-box {
+        .download-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 25px;
             align-items: center;
+        }
+
+        .os-group {
+            width: 100%;
+        }
+
+        .os-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            color: #505055;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .download-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
         }
 
         .download-btn {
             display: inline-block;
-            min-width: 240px;
-            padding: 12px 24px;
+            padding: 12px 15px;
             background-color: #050505;
             color: #d2d7dc;
             text-decoration: none;
@@ -78,6 +99,7 @@
             border: 1px solid #8c8c91;
             transition: all 0.3s ease;
             cursor: pointer;
+            text-align: center;
         }
 
         .download-btn:hover {
@@ -94,6 +116,13 @@
             margin-top: 3px;
             text-transform: lowercase;
         }
+
+        /* Stack buttons on small screens */
+        @media (max-width: 480px) {
+            .download-box {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -104,16 +133,51 @@
         <h1>reflections.</h1>
         <p class="subtitle">-- an existential void of knowledge --</p>
         
-        <div class="download-box">
-            <a href="https://github.com/mcflurrymuncha/reflections/releases/download/latest/reflections-stable-windows.zip" class="download-btn">
-                download
-                <span>recommended version. more stable</span>
-            </a>
-            
-            <a href="https://github.com/mcflurrymuncha/reflections/releases/download/latest/reflections-beta-windows.zip" class="download-btn">
-                download beta edition
-                <span>with debug console, higher chances of crashes</span>
-            </a>
+        <div class="download-container">
+            <!-- Windows Platform -->
+            <div class="os-group">
+                <div class="os-title">Windows</div>
+                <div class="download-box">
+                    <a href="https://github.com/mcflurrymuncha/reflections/releases/download/latest/reflections_windows_stable.zip" class="download-btn">
+                        download
+                        <span>recommended version. stable</span>
+                    </a>
+                    <a href="https://github.com/mcflurrymuncha/reflections/releases/download/latest/reflections_windows_beta.zip" class="download-btn">
+                        beta edition
+                        <span>with debug console</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Linux Platform -->
+            <div class="os-group">
+                <div class="os-title">Linux</div>
+                <div class="download-box">
+                    <a href="https://github.com/mcflurrymuncha/reflections/releases/download/latest/reflections_linux_stable.zip" class="download-btn">
+                        download
+                        <span>recommended version. stable</span>
+                    </a>
+                    <a href="https://github.com/mcflurrymuncha/reflections/releases/download/latest/reflections_linux_beta.zip" class="download-btn">
+                        beta edition
+                        <span>with debug console</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- macOS Platform -->
+            <div class="os-group">
+                <div class="os-title">macOS</div>
+                <div class="download-box">
+                    <a href="https://github.com/mcflurrymuncha/reflections/releases/download/latest/reflections_macos_stable.zip" class="download-btn">
+                        download
+                        <span>recommended version. stable</span>
+                    </a>
+                    <a href="https://github.com/mcflurrymuncha/reflections/releases/download/latest/reflections_macos_beta.zip" class="download-btn">
+                        beta edition
+                        <span>with debug console</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -136,22 +200,21 @@
             return {
                 x: Math.random() * width,
                 y: initial ? Math.random() * height : Math.random() * -20 - 5,
-                radius: Math.random() * 2.6 + 1.2, // matching 1.2 to 3.8 radius size
-                speedY: Math.random() * 1.2 + 0.6, // matching 0.6 to 1.8 speed
+                radius: Math.random() * 2.6 + 1.2,
+                speedY: Math.random() * 1.2 + 0.6,
                 swayAmplitude: Math.random() * 0.9 + 0.3,
                 swaySpeed: Math.random() * 1.6 + 1.2,
                 phase: Math.random() * 100
             };
         }
 
-        // Initialize array populate
         for (let i = 0; i < numFlakes; i++) {
             snowflakes.push(createSnowflake(true));
         }
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            ctx.fillStyle = '#f5f5fa'; // Matching original Pygame flake color tuple (245, 245, 250)
+            ctx.fillStyle = '#f5f5fa';
 
             const currentTime = Date.now() * 0.001;
 
@@ -161,7 +224,6 @@
                 flake.y += flake.speedY;
                 flake.x += Math.sin(currentTime * flake.swaySpeed + flake.phase) * flake.swayAmplitude;
 
-                // Reset bound metrics if dropped off target screen floor
                 if (flake.y > height + 10) {
                     snowflakes[i] = createSnowflake(false);
                 }
