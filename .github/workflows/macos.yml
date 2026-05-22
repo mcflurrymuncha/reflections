@@ -1,0 +1,69 @@
+name: reflctions. macos build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout Repository Source
+      uses: actions/checkout@v4
+
+    - name: Set up Python Runtime
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install System Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pygame pypresence pyinstaller
+
+    - name: Compile Standard App Build
+      run: |
+        # --windowed creates a native macOS .app bundle package
+        pyinstaller --noconfirm --onedir --windowed --name="reflections_beta" reflections.py
+
+    - name: Compile Debug Build (Console)
+      run: |
+        # Creates a standard command-line binary executable for debugging
+        pyinstaller --noconfirm --onedir --name="reflections_debug" reflections.py
+
+    - name: Package Runtime Assets into Both Builds
+      run: |
+        # Note: On macOS, assets for a .app bundle need to go inside Contents/Resources/
+        # if PyInstaller's bundle structure is strictly used, but to mimic your structure 
+        # and keep Pygame paths identical, we target the main directory.
+        
+        BETA_TARGET="dist/reflections_beta.app/Contents/MacOS"
+        DEBUG_TARGET="dist/reflections_debug"
+
+        TARGETS=("$BETA_TARGET" "$DEBUG_TARGET")
+
+        for TARGET in "${TARGETS[@]}"; do
+          # Only attempt to package if the compiled folder exists
+          if [ -d "$TARGET" ]; then
+            # Copy your required song asset directly into the compiled output folder
+            if [ -f "song.mp3" ]; then
+              cp "song.mp3" "$TARGET/"
+            else
+              echo "[warning] song.mp3 not found in root, proceeding with quiet mode build for $TARGET."
+            fi
+            
+            # Creates dummy folders inside both builds so your players can mess with them
+            mkdir -p "$TARGET/characters"
+            echo "the commitment is crazy" > "$TARGET/characters/yuri.chr"
+          fi
+        done
+
+    - name: Upload Binary Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: reflections-macos-builds
+        path: dist/
+        if-no-files-found: error
