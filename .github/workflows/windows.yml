@@ -1,0 +1,58 @@
+name: reflections. windows build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository Source
+      uses: actions/checkout@v4
+
+    - name: Set up Python Runtime
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install System Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pygame pypresence pyinstaller
+
+    - name: Compile 'No Console' Build (Standard App)
+      run: |
+        pyinstaller --noconfirm --onedir --windowed --icon="icon.ico" --name="reflections_beta" reflections.py
+
+    - name: Compile 'Console' Build (Debug Mode)
+      run: |
+        pyinstaller --noconfirm --onedir --console --icon="icon.ico" --name="reflections_debug" reflections.py
+
+    - name: Package Runtime Assets into Both Builds
+      run: |
+        # Target list for populating folders
+        $Targets = @("dist/reflections_beta", "dist/reflections_debug")
+
+        foreach ($Target in $Targets) {
+          # Copy your required song asset directly into the compiled output folder
+          if (Test-Path "song.mp3") {
+            Copy-Item "song.mp3" -Destination "$Target/"
+          } else {
+            Write-Host "[warning] song.mp3 not found in root, proceeding with quiet mode build for $Target."
+          }
+          
+          # Creates dummy folders inside both builds so your players can mess with them
+          New-Item -ItemType Directory -Force -Path "$Target/characters"
+          New-Item -ItemType File -Force -Path "$Target/characters/yuri.chr" -Value "the commitment is crazy"
+        }
+
+    - name: Upload Binary Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: reflections-windows-builds
+        path: dist/
+        if-no-files-found: error
